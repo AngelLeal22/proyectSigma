@@ -11,7 +11,7 @@
 
 | Hub Principal | Sección Envases | Sección Publicidad |
 | :---: | :---: | :---: |
-| ![Hub](imagenes-readme/sigma-principal.png) | ![Envases](imagenes-readme/sigma-envases.png) | ![Publicidad](imagenes-readme/sigma-publicidad.png) |
+| ![Hub](public/imagenes-readme/sigma-principal.png) | ![Envases](public/imagenes-readme/sigma-envases.png) | ![Publicidad](public/imagenes-readme/sigma-publicidad.png) |
 
 
 
