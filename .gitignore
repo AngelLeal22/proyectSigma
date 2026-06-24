@@ -1,0 +1,32 @@
+
+echo node_modules/ > .gitignore
+
+# Dependencias de Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Variables de entorno (si se usa .env)
+.env
+.env.local
+.env.*.local
+
+# Archivos de editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos de log
+logs/
+*.log
+
+# Archivos de cobertura de pruebas
+coverage/
+.nyc_output/
