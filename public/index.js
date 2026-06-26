@@ -74,3 +74,78 @@ document.querySelectorAll('.faq-question').forEach(question => {
         }
     });
 });
+
+
+// ===== CARRUSEL =====
+const track = document.getElementById('carruselTrack');
+const slides = track.querySelectorAll('.carrusel-slide');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const indicatorsContainer = document.getElementById('indicatorsContainer');
+
+let currentIndex = 0;
+const totalSlides = slides.length;
+let autoPlayInterval = null;
+const AUTO_PLAY_DELAY = 4000; // 4 segundos
+
+// Crear indicadores (puntos)
+slides.forEach((_, index) => {
+    const dot = document.createElement('button');
+    dot.classList.add('carrusel-indicator');
+    if (index === 0) dot.classList.add('active');
+    dot.dataset.index = index;
+    dot.addEventListener('click', () => goToSlide(index));
+    indicatorsContainer.appendChild(dot);
+});
+
+const indicators = indicatorsContainer.querySelectorAll('.carrusel-indicator');
+
+// Función para ir a un slide específico
+function goToSlide(index) {
+    if (index < 0) index = totalSlides - 1;
+    if (index >= totalSlides) index = 0;
+    currentIndex = index;
+
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+    // Actualizar indicadores
+    indicators.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
+    });
+}
+
+// Eventos de los botones
+prevBtn.addEventListener('click', () => {
+    goToSlide(currentIndex - 1);
+    resetAutoPlay();
+});
+
+nextBtn.addEventListener('click', () => {
+    goToSlide(currentIndex + 1);
+    resetAutoPlay();
+});
+
+// Reproducción automática
+function startAutoPlay() {
+    autoPlayInterval = setInterval(() => {
+        goToSlide(currentIndex + 1);
+    }, AUTO_PLAY_DELAY);
+}
+
+function resetAutoPlay() {
+    clearInterval(autoPlayInterval);
+    startAutoPlay();
+}
+
+// Iniciar reproducción automática
+startAutoPlay();
+
+// Pausar al pasar el mouse sobre el carrusel
+const carruselContainer = document.querySelector('.carrusel-container');
+carruselContainer.addEventListener('mouseenter', () => {
+    clearInterval(autoPlayInterval);
+});
+
+carruselContainer.addEventListener('mouseleave', () => {
+    startAutoPlay();
+});
