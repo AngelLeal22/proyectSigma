@@ -40,6 +40,10 @@ body {
   overflow-x: hidden;
 }
 
+html{
+  zoom: 0.7;
+}
+
 h1,
 h2,
 h3,
@@ -358,28 +362,27 @@ nav ul a:hover {
 
 .hero-image {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 24px;
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.2);
+  background: var(--slate-100);
+  aspect-ratio: 4 / 3; /* Relación de aspecto para que sea más cuadrado */
 }
 
+/* Eliminar el borde decorativo (::before) */
 .hero-image::before {
-  content: "";
-  position: absolute;
-  inset: -20px;
-  border: 2px solid var(--slate-100);
-  border-radius: 32px;
-  z-index: -1;
-  transition: var(--transition-smooth);
-}
-
-.hero-image:hover::before {
-  inset: -30px;
-  border-color: var(--amber);
+  display: none;
 }
 
 .hero-image video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Recorta el video para que llene el contenedor sin distorsión */
+  display: block;
   border-radius: 24px;
-  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.2);
-  width: 50%;
-  height: 50%;
 }
 
 .section-title {
@@ -766,7 +769,7 @@ footer {
 /* Sección de contacto */
 .contact-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: start;
   margin-top: 3rem;
@@ -774,17 +777,33 @@ footer {
 
 .contact-map {
   top: 10rem;
-  text-align: center;
   border-radius: 24px;
   overflow: hidden;
   box-shadow: var(--shadow-premium);
   border: 1px solid var(--slate-200);
+  /* Nuevo: centrar el mapa en su columna */
+  justify-self: center;
+  align-self: center;
+  width: 100%;
+  max-width: 600px;
+}
+#panel-contacto .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-grid {
+  width: 100%;
+  max-width: 1200px;
 }
 
 .contact-info {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  justify-self: start;
+  align-self: start;
 }
 
 .contact-card {
@@ -841,7 +860,7 @@ footer {
 .carrusel-container {
   position: relative;
   max-width: 900px;
-  margin: 4rem auto 0;
+  margin: 1rem auto 0;
   overflow: hidden;
   border-radius: 24px;
   box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
