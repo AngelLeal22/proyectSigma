@@ -26,6 +26,9 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+body {
+  zoom: 0.7; /* Reduce el zoom al 70% */
+}
 
 body {
   font-family:
@@ -785,6 +788,7 @@ footer {
 
 .contact-map {
   top: 10rem;
+  text-align: center;
   border-radius: 24px;
   overflow: hidden;
   box-shadow: var(--shadow-premium);
@@ -971,6 +975,98 @@ footer {
   }
 }
 
+
+/* ===== FONDOS DINÁMICOS PARA HOME (FONDO COMPLETO) ===== */
+#panel-hub {
+  position: relative;
+  transition: background-color 0.6s ease;
+  background-color: var(--slate-50);
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+/* Capa de fondo dinámico (imagen) - entrada y salida suaves */
+#panel-hub::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: 
+    opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: scale(1.02);
+  z-index: 0;
+  filter: brightness(1.05) saturate(1.1);
+}
+
+/* Overlay - entrada y salida suaves */
+#panel-hub::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1;
+  backdrop-filter: blur(0px);
+}
+
+/* Estados activos (entrada) */
+#panel-hub.fondo-envases::before,
+#panel-hub.fondo-publicidad::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+#panel-hub.fondo-envases::after,
+#panel-hub.fondo-publicidad::after {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(1.5px);
+}
+
+/* Asegurar que el contenido esté por encima del fondo */
+#panel-hub .hub-hero,
+#panel-hub .hub-cards {
+  position: relative;
+  z-index: 2;
+}
+
+/* Estado con imagen de ENVASES (fondo completo) */
+#panel-hub.fondo-envases::before {
+  background-image: url('/imagenes/envases-background.png');
+}
+
+/* Estado con imagen de PUBLICIDAD (fondo completo) */
+#panel-hub.fondo-publicidad::before {
+  background-image: url('/imagenes/sigma-publicidad.png');
+}
+
+/* Mejora en hover de tarjetas */
+.card {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.2);
+}
+/* ===== ESTADO DE SALIDA PARA EL FONDO (TRANSICIÓN SUAVE) ===== */
+#panel-hub.fondo-saliendo::before,
+#panel-hub.fondo-saliendo::after {
+  opacity: 0 !important;
+  transition: 
+    opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: scale(1.02);
+}
 /* Animaciones */
 @keyframes fadeInUp {
   from {

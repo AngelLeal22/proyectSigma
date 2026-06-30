@@ -149,3 +149,72 @@ carruselContainer.addEventListener('mouseenter', () => {
 carruselContainer.addEventListener('mouseleave', () => {
     startAutoPlay();
 });
+
+
+// ===== FONDO DINÁMICO EN HOME (CON TRANSICIÓN SUAVE SIEMPRE) =====
+const panelHub = document.getElementById('panel-hub');
+const cardEnvases = document.querySelector('.card:first-child');
+const cardPublicidad = document.querySelector('.card:last-child');
+
+let timeoutId = null;
+
+function mostrarFondo(tipo) {
+  // Limpiar cualquier timeout pendiente
+  if (timeoutId) {
+    clearTimeout(timeoutId);
+    timeoutId = null;
+  }
+  
+  // Remover la clase de salida si existe
+  panelHub.classList.remove('fondo-saliendo');
+  
+  // Forzar un reflow para que el cambio de clase se aplique
+  void panelHub.offsetWidth;
+  
+  // Remover ambas clases y añadir la nueva
+  panelHub.classList.remove('fondo-envases', 'fondo-publicidad');
+  panelHub.classList.add(tipo);
+}
+
+function resetFondo() {
+  // Limpiar cualquier timeout pendiente
+  if (timeoutId) {
+    clearTimeout(timeoutId);
+    timeoutId = null;
+  }
+  
+  // Añadir la clase de salida para activar la transición de desvanecimiento
+  panelHub.classList.add('fondo-saliendo');
+  
+  // Esperar a que termine la transición (0.9s) y luego limpiar
+  timeoutId = setTimeout(() => {
+    panelHub.classList.remove('fondo-envases', 'fondo-publicidad', 'fondo-saliendo');
+    timeoutId = null;
+  }, 900);
+}
+
+cardEnvases.addEventListener('mouseenter', () => {
+  mostrarFondo('fondo-envases');
+});
+
+cardEnvases.addEventListener('mouseleave', () => {
+  // Solo resetear si el mouse no está sobre la otra tarjeta
+  setTimeout(() => {
+    if (!cardEnvases.matches(':hover') && !cardPublicidad.matches(':hover')) {
+      resetFondo();
+    }
+  }, 100);
+});
+
+cardPublicidad.addEventListener('mouseenter', () => {
+  mostrarFondo('fondo-publicidad');
+});
+
+cardPublicidad.addEventListener('mouseleave', () => {
+  // Solo resetear si el mouse no está sobre la otra tarjeta
+  setTimeout(() => {
+    if (!cardEnvases.matches(':hover') && !cardPublicidad.matches(':hover')) {
+      resetFondo();
+    }
+  }, 100);
+});
