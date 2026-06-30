@@ -26,9 +26,6 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
-body {
-  zoom: 0.7; /* Reduce el zoom al 70% */
-}
 
 body {
   font-family:
@@ -37,6 +34,7 @@ body {
     -apple-system,
     sans-serif;
   color: var(--text-dark);
+  background: var(--slate-50);
   background-color: var(--white);
   line-height: 1.7;
   overflow-x: hidden;
@@ -223,25 +221,13 @@ nav ul a:hover {
 
 /* Panel 1: HUB */
 #panel-hub {
-  background: linear-gradient(
-    135deg,
-    var(--slate-50) 0%,
-    var(--slate-100) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--slate-50) 0%,
+      var(--slate-100) 100%);
   justify-content: center;
   text-align: center;
   position: relative;
   overflow: hidden;
-}
-
-#panel-hub::before {
-  content: "";
-  position: absolute;
-  top: -10%;
-  right: -10%;
-  width: 40%;
-  height: 40%;
-  z-index: 0;
 }
 
 .hub-hero {
@@ -389,10 +375,11 @@ nav ul a:hover {
   border-color: var(--amber);
 }
 
-.hero-image img {
+.hero-image video {
   border-radius: 24px;
   box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.2);
-  width: 100%;
+  width: 50%;
+  height: 50%;
 }
 
 .section-title {
@@ -501,11 +488,9 @@ nav ul a:hover {
 
 .faq-section {
   padding: 8rem 0;
-  background: radial-gradient(
-    circle at top right,
-    var(--slate-100),
-    var(--white)
-  );
+  background: radial-gradient(circle at top right,
+      var(--slate-100),
+      var(--white));
   border-radius: 60px;
   margin: 8rem 0;
   position: relative;
@@ -671,6 +656,7 @@ footer {
   margin: 0 auto;
   padding: 0 1.5rem;
 }
+
 .footer-brand {
   text-align: center;
 }
@@ -996,7 +982,7 @@ footer {
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0;
-  transition: 
+  transition:
     opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transform: scale(1.02);
@@ -1058,15 +1044,17 @@ footer {
   transform: translateY(-10px) scale(1.02);
   box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.2);
 }
+
 /* ===== ESTADO DE SALIDA PARA EL FONDO (TRANSICIÓN SUAVE) ===== */
 #panel-hub.fondo-saliendo::before,
 #panel-hub.fondo-saliendo::after {
   opacity: 0 !important;
-  transition: 
+  transition:
     opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
     transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transform: scale(1.02);
 }
+
 /* Animaciones */
 @keyframes fadeInUp {
   from {
@@ -1080,7 +1068,7 @@ footer {
   }
 }
 
-.panel > * {
+.panel>* {
   animation: fadeInUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
