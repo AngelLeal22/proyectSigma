@@ -1046,12 +1046,12 @@ footer {
 
 /* Estado con imagen de ENVASES (fondo completo) */
 #panel-hub.fondo-envases::before {
-  background-image: url('/imagenes/envases-background.png');
+  background-image: url('/public/imagenes/envases-background.png');
 }
 
 /* Estado con imagen de PUBLICIDAD (fondo completo) */
 #panel-hub.fondo-publicidad::before {
-  background-image: url('/imagenes/sigma-publicidad.png');
+  background-image: url('/public/imagenes/sigma-publicidad.png');
 }
 
 /* Mejora en hover de tarjetas */
