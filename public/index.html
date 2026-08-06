@@ -16,9 +16,12 @@
 <body>
 
     <header class="panel-header">
-        <div class="logo">
-            <i class="logo-icon">S</i> SIGMA
-        </div>
+        <a href="#home" class="logo">
+            <span class="logo-img-wrap">
+                <img src="/imagenes/logo-sigma.png" alt="Logo Sigma" id="logo-img-default" class="logo-img logo-img-visible">
+                <img src="/imagenes/logo-sigma-publicidad.png" alt="Logo Sigma Publicidad" id="logo-img-publicidad" class="logo-img">
+            </span> SIGMA
+        </a>
         <nav>
             <ul>
                 <li><a href="#home">Inicio</a></li>
@@ -30,6 +33,11 @@
 
     <!-- PANEL 1: INICIO PRINCIPAL -->
     <section id="panel-hub" class="panel">
+
+        <video id="hub-video-envases" class="hub-bg-video" muted loop playsinline preload="none"
+            poster="/imagenes/envases-background.png" data-src="/imagenes/envases-video.mp4"></video>
+        <video id="hub-video-publicidad" class="hub-bg-video" muted loop playsinline preload="none"
+            poster="/imagenes/sigma-publicidad.png" data-src="/imagenes/impresion-horizontal.mp4"></video>
 
         <div class="hub-hero">
             <h1>Dos mundos, una misma excelencia</h1>
@@ -423,7 +431,10 @@
         <div class="container footer-content">
             <div class="footer-brand">
                 <div class="logo">
-                    <i class="logo-icon" style="background: var(--white); color: var(--midnight-blue);">S</i> SIGMA
+                    <span class="logo-img-wrap">
+                        <img src="/imagenes/logo-sigma.png" alt="Logo Sigma" id="logo-img-footer-default" class="logo-img logo-img-visible">
+                        <img src="/imagenes/logo-sigma-publicidad.png" alt="Logo Sigma Publicidad" id="logo-img-footer-publicidad" class="logo-img">
+                    </span> SIGMA
                 </div>
                 <p>Líderes en soluciones integrales de envases y publicidad creativa. Potenciamos tu marca con calidad y
                     excelencia.</p>
@@ -452,6 +463,14 @@
         </div>
     </footer>
 
+    <a href="https://wa.me/584120720689" target="_blank" rel="noopener" id="whatsapp-envases" class="whatsapp-float"
+        aria-label="Chatea por WhatsApp con Sigma Envases">
+        <img src="/imagenes/whatsapp.png" alt="logo WhatsApp">
+    </a>
+    <a href="https://wa.me/584129202591" target="_blank" rel="noopener" id="whatsapp-publicidad" class="whatsapp-float"
+        aria-label="Chatea por WhatsApp con Sigma Publicidad">
+        <img src="/imagenes/whatsapp.png" alt="logo WhatsApp">
+    </a>
     <button id="back-to-top" class="back-to-top" title="Volver arriba">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">

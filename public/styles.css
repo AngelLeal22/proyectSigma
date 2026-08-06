@@ -183,6 +183,43 @@ img {
   box-shadow: 0 15px 30px rgba(245, 158, 11, 0.5);
 }
 
+.whatsapp-float {
+  position: fixed;
+  bottom: 7rem;
+  right: 2.5rem;
+  width: 60px;
+  height: 60px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(37, 211, 102, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(20px) scale(0.85);
+  transition: var(--transition-smooth);
+  z-index: 2000;
+}
+
+.whatsapp-float.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.whatsapp-float img {
+  width: 30px;
+  height: 30px;
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 30px rgba(37, 211, 102, 0.45);
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -204,6 +241,28 @@ img {
   color: rgb(33 58 143);
   font-style: normal;
   font-family: serif;
+}
+
+.logo-img-wrap {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 38px;
+}
+
+.logo-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  opacity: 0;
+  transition: var(--transition-smooth);
+}
+
+.logo-img-visible {
+  opacity: 1;
 }
 
 nav ul {
@@ -1044,14 +1103,35 @@ footer {
   z-index: 2;
 }
 
-/* Estado con imagen de ENVASES (fondo completo) */
-#panel-hub.fondo-envases::before {
-  background-image: url('/imagenes/envases-background.png');
+/* Capa de video dinámico (ENVASES / PUBLICIDAD) - entrada y salida suaves, igual que las imágenes */
+.hub-bg-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.08);
+  transition:
+    opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 0;
+  pointer-events: none;
+  animation: none !important;
 }
 
-/* Estado con imagen de PUBLICIDAD (fondo completo) */
-#panel-hub.fondo-publicidad::before {
-  background-image: url('/imagenes/sigma-publicidad.png');
+#panel-hub.fondo-envases #hub-video-envases,
+#panel-hub.fondo-publicidad #hub-video-publicidad {
+  opacity: 1;
+  transform: scale(1);
+}
+
+#panel-hub.fondo-saliendo .hub-bg-video {
+  opacity: 0 !important;
+  transform: scale(1.08) !important;
+  transition:
+    opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* Mejora en hover de tarjetas */
