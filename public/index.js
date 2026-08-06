@@ -1,4 +1,10 @@
 const backToTopBtn = document.getElementById('back-to-top');
+const whatsappEnvasesBtn = document.getElementById('whatsapp-envases');
+const whatsappPublicidadBtn = document.getElementById('whatsapp-publicidad');
+const logoDefaultImg = document.getElementById('logo-img-default');
+const logoPublicidadImg = document.getElementById('logo-img-publicidad');
+const logoFooterDefaultImg = document.getElementById('logo-img-footer-default');
+const logoFooterPublicidadImg = document.getElementById('logo-img-footer-publicidad');
 
 // --- GESTOR DE VISTAS (RUTAS) ---
 const routes = {
@@ -28,6 +34,17 @@ function navigate() {
     if (activePanel) {
         activePanel.classList.add('view-active');
     }
+
+    // Mostrar el botón flotante de WhatsApp correspondiente a la sección activa
+    whatsappEnvasesBtn.classList.toggle('visible', activePanel === routes['#envases']);
+    whatsappPublicidadBtn.classList.toggle('visible', activePanel === routes['#publicidad']);
+
+    // Alternar el logo del navbar y del footer: variante de Publicidad solo en esa sección
+    const esPublicidad = activePanel === routes['#publicidad'];
+    logoPublicidadImg.classList.toggle('logo-img-visible', esPublicidad);
+    logoDefaultImg.classList.toggle('logo-img-visible', !esPublicidad);
+    logoFooterPublicidadImg.classList.toggle('logo-img-visible', esPublicidad);
+    logoFooterDefaultImg.classList.toggle('logo-img-visible', !esPublicidad);
 
     // Desplazarse a la sección cuando el hash apunta a un elemento; de lo contrario subir arriba.
     const targetSection = window.location.hash ? document.querySelector(window.location.hash) : null;
@@ -155,8 +172,25 @@ carruselContainer.addEventListener('mouseleave', () => {
 const panelHub = document.getElementById('panel-hub');
 const cardEnvases = document.querySelector('.card:first-child');
 const cardPublicidad = document.querySelector('.card:last-child');
+const videoEnvases = document.getElementById('hub-video-envases');
+const videoPublicidad = document.getElementById('hub-video-publicidad');
 
 let timeoutId = null;
+const videosCargados = new WeakSet();
+
+// Carga cada video solo la primera vez que hace falta (evita descargarlos si el usuario nunca pasa el mouse por esa tarjeta)
+function prepararVideo(video) {
+  if (videosCargados.has(video)) {
+    video.play().catch(() => {});
+    return;
+  }
+  videosCargados.add(video);
+  video.src = video.dataset.src;
+  video.addEventListener('canplay', () => {
+    video.play().catch(() => {});
+  }, { once: true });
+  video.load();
+}
 
 function mostrarFondo(tipo) {
   // Limpiar cualquier timeout pendiente
@@ -195,6 +229,7 @@ function resetFondo() {
 
 cardEnvases.addEventListener('mouseenter', () => {
   mostrarFondo('fondo-envases');
+  prepararVideo(videoEnvases);
 });
 
 cardEnvases.addEventListener('mouseleave', () => {
@@ -208,6 +243,7 @@ cardEnvases.addEventListener('mouseleave', () => {
 
 cardPublicidad.addEventListener('mouseenter', () => {
   mostrarFondo('fondo-publicidad');
+  prepararVideo(videoPublicidad);
 });
 
 cardPublicidad.addEventListener('mouseleave', () => {
