@@ -5,6 +5,14 @@ const logoDefaultImg = document.getElementById('logo-img-default');
 const logoPublicidadImg = document.getElementById('logo-img-publicidad');
 const logoFooterDefaultImg = document.getElementById('logo-img-footer-default');
 const logoFooterPublicidadImg = document.getElementById('logo-img-footer-publicidad');
+const panelHeader = document.querySelector('.panel-header');
+const mainNav = document.getElementById('main-nav');
+const navToggle = document.getElementById('nav-toggle');
+const navIndicator = document.querySelector('.nav-indicator');
+const navList = mainNav.querySelector('ul');
+const navLinks = Array.from(mainNav.querySelectorAll('a[data-route]'));
+
+document.getElementById('footer-year').textContent = new Date().getFullYear();
 
 // --- GESTOR DE VISTAS (RUTAS) ---
 const routes = {
@@ -46,6 +54,13 @@ function navigate() {
     logoFooterPublicidadImg.classList.toggle('logo-img-visible', esPublicidad);
     logoFooterDefaultImg.classList.toggle('logo-img-visible', !esPublicidad);
 
+    // Resaltar el enlace de navegación activo y mover el indicador deslizante
+    const activeRoute = Object.keys(routes).find(key => routes[key] === activePanel) || '#home';
+    navLinks.forEach(link => link.classList.toggle('active', link.dataset.route === activeRoute));
+    document.documentElement.style.setProperty('--nav-accent', esPublicidad ? 'var(--sigma-orange)' : 'var(--sigma-teal)');
+    updateNavIndicator();
+    closeMobileNav();
+
     // Desplazarse a la sección cuando el hash apunta a un elemento; de lo contrario subir arriba.
     const targetSection = window.location.hash ? document.querySelector(window.location.hash) : null;
     if (targetSection) {
@@ -55,11 +70,52 @@ function navigate() {
     }
 }
 
+// --- INDICADOR DESLIZANTE DEL NAV ---
+function updateNavIndicator() {
+    const activeLink = navList.querySelector('a.active');
+    if (!activeLink || window.innerWidth <= 768) {
+        navIndicator.style.width = '0px';
+        return;
+    }
+    // offsetLeft/offsetWidth (no getBoundingClientRect) para que coincida con el
+    // espacio de coordenadas de "transform", sin importar el zoom del navegador.
+    navIndicator.style.width = `${activeLink.offsetWidth}px`;
+    navIndicator.style.transform = `translateX(${activeLink.offsetLeft}px)`;
+}
+
+window.addEventListener('resize', updateNavIndicator);
+if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(updateNavIndicator);
+}
+
+// --- MENÚ MÓVIL ---
+function closeMobileNav() {
+    mainNav.classList.remove('open');
+    navToggle.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+}
+
+navToggle.addEventListener('click', () => {
+    const isOpen = mainNav.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+});
+
+navLinks.forEach(link => link.addEventListener('click', closeMobileNav));
+
+document.addEventListener('click', (e) => {
+    if (mainNav.classList.contains('open') && !mainNav.contains(e.target) && !navToggle.contains(e.target)) {
+        closeMobileNav();
+    }
+});
+
 window.addEventListener('hashchange', navigate);
 window.addEventListener('load', navigate);
 
-// --- LÓGICA DEL BOTÓN VOLVER ARRIBA ---
+// --- LÓGICA DEL BOTÓN VOLVER ARRIBA Y NAVBAR CON SCROLL ---
 window.addEventListener('scroll', () => {
+    panelHeader.classList.toggle('scrolled', window.scrollY > 30);
+
     if (window.scrollY > 400) {
         backToTopBtn.classList.add('visible');
     } else {
