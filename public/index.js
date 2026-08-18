@@ -310,3 +310,89 @@ cardPublicidad.addEventListener('mouseleave', () => {
     }
   }, 100);
 });
+
+// ===== FORMULARIO DE CONTACTO =====
+const contactForm = document.getElementById('contact-form');
+const contactSubmitBtn = document.getElementById('cf-submit');
+const contactStatus = document.getElementById('cf-status');
+
+const CONTACT_VALIDATORS = {
+  nombre: (value) => value.trim().length > 0 || 'Ingresa tu nombre y apellido.',
+  telefono: (value) => value.replace(/\D/g, '').length >= 7 || 'Ingresa un número celular válido.',
+  email: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) || 'Ingresa un correo electrónico válido.',
+  descripcion: (value) => value.trim().length > 0 || 'Cuéntanos brevemente qué necesitas.',
+};
+
+function setFieldError(fieldName, message) {
+  const field = contactForm.querySelector(`[name="${fieldName}"]`);
+  const errorEl = contactForm.querySelector(`.form-error[data-error-for="${fieldName}"]`);
+  const wrapper = field.closest('.form-field');
+  wrapper.classList.toggle('has-error', Boolean(message));
+  errorEl.textContent = message || '';
+}
+
+function validateContactForm(data) {
+  let isValid = true;
+  Object.entries(CONTACT_VALIDATORS).forEach(([fieldName, validate]) => {
+    const result = validate(data[fieldName] || '');
+    if (result !== true) {
+      setFieldError(fieldName, result);
+      isValid = false;
+    } else {
+      setFieldError(fieldName, '');
+    }
+  });
+  return isValid;
+}
+
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(contactForm);
+    const data = {
+      nombre: formData.get('nombre') || '',
+      telefono: formData.get('telefono') || '',
+      email: formData.get('email') || '',
+      descripcion: formData.get('descripcion') || '',
+    };
+
+    contactStatus.textContent = '';
+    contactStatus.className = 'form-status';
+
+    if (!validateContactForm(data)) {
+      contactStatus.textContent = 'Revisa los campos marcados en rojo.';
+      contactStatus.classList.add('error');
+      return;
+    }
+
+    contactSubmitBtn.disabled = true;
+    contactSubmitBtn.textContent = 'Enviando...';
+
+    try {
+      const response = await fetch('/api/contacto', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+
+      if (!response.ok || !result.ok) {
+        if (result.errores) {
+          Object.entries(result.errores).forEach(([fieldName, message]) => setFieldError(fieldName, message));
+        }
+        throw new Error(result.error || 'Revisa los campos marcados en rojo.');
+      }
+
+      contactForm.reset();
+      contactStatus.textContent = '¡Gracias! Recibimos tu solicitud y te contactaremos pronto.';
+      contactStatus.classList.add('success');
+    } catch (err) {
+      contactStatus.textContent = err.message || 'Ocurrió un error al enviar tu solicitud. Intenta de nuevo.';
+      contactStatus.classList.add('error');
+    } finally {
+      contactSubmitBtn.disabled = false;
+      contactSubmitBtn.textContent = 'Enviar solicitud';
+    }
+  });
+}

@@ -995,6 +995,113 @@ footer#footer-main::before {
   line-height: 1.5;
 }
 
+/* ===== FORMULARIO DE CONTACTO ===== */
+.contact-form-wrapper {
+  margin: 4rem auto 0;
+  max-width: 700px;
+  background: var(--white);
+  border-radius: 24px;
+  padding: 3rem;
+  border: 1px solid var(--slate-100);
+  box-shadow: var(--shadow-premium);
+}
+
+.contact-form-intro {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.contact-form-intro h3 {
+  font-family: "Outfit", sans-serif;
+  font-size: 1.6rem;
+  color: var(--midnight-blue);
+  margin-bottom: 0.5rem;
+}
+
+.contact-form-intro p {
+  color: var(--text-muted);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--midnight-blue);
+}
+
+.form-field input,
+.form-field textarea {
+  padding: 0.9rem 1.1rem;
+  border-radius: 12px;
+  border: 1.5px solid var(--slate-200);
+  background: var(--slate-50);
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text-dark);
+  transition: var(--transition-fast);
+  resize: vertical;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--amber);
+  background: var(--white);
+  box-shadow: 0 0 0 4px var(--amber-glow);
+}
+
+.form-field.has-error input,
+.form-field.has-error textarea {
+  border-color: #dc2626;
+}
+
+.form-error {
+  display: block;
+  min-height: 1rem;
+  font-size: 0.8rem;
+  color: #dc2626;
+}
+
+#contact-form .btn {
+  display: block;
+  min-width: 240px;
+  margin: 0.5rem auto 0;
+}
+
+#contact-form .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.form-status {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  min-height: 1.2rem;
+}
+
+.form-status.success {
+  color: #15803d;
+}
+
+.form-status.error {
+  color: #dc2626;
+}
+
 /* ===== CARRUSEL ===== */
 .carrusel-container {
   position: relative;
@@ -1331,6 +1438,14 @@ footer#footer-main::before {
   .contact-map {
     position: static;
     height: 350px;
+  }
+
+  .contact-form-wrapper {
+    padding: 2rem 1.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
   }
 
   .hero,

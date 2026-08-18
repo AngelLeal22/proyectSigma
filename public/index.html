@@ -44,9 +44,9 @@
     <section id="panel-hub" class="panel">
 
         <video id="hub-video-envases" class="hub-bg-video" muted loop playsinline preload="none"
-            poster="/imagenes/envases-background.png" data-src="/imagenes/envases-video.mp4"></video>
+            data-src="/imagenes/envases-video.mp4"></video>
         <video id="hub-video-publicidad" class="hub-bg-video" muted loop playsinline preload="none"
-            poster="/imagenes/sigma-publicidad.png" data-src="/imagenes/impresion-horizontal.mp4"></video>
+            data-src="/imagenes/impresion-horizontal.mp4"></video>
 
         <div class="hub-hero">
             <h1>Dos mundos, una misma excelencia</h1>
@@ -430,6 +430,44 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="contact-form-wrapper">
+                <div class="contact-form-intro">
+                    <h3>¿Tienes un proyecto en mente?</h3>
+                    <p>Déjanos tus datos y nuestro equipo te contactará a la brevedad.</p>
+                </div>
+
+                <form id="contact-form" novalidate>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="cf-nombre">Nombre y apellido</label>
+                            <input type="text" id="cf-nombre" name="nombre" autocomplete="name" required>
+                            <span class="form-error" data-error-for="nombre"></span>
+                        </div>
+                        <div class="form-field">
+                            <label for="cf-telefono">Número celular</label>
+                            <input type="tel" id="cf-telefono" name="telefono" autocomplete="tel"
+                                placeholder="+58 412 000 0000" required>
+                            <span class="form-error" data-error-for="telefono"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="cf-email">Email</label>
+                        <input type="email" id="cf-email" name="email" autocomplete="email" required>
+                        <span class="form-error" data-error-for="email"></span>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="cf-descripcion">Cuéntanos sobre tu proyecto</label>
+                        <textarea id="cf-descripcion" name="descripcion" rows="4" required></textarea>
+                        <span class="form-error" data-error-for="descripcion"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-amber" id="cf-submit">Enviar solicitud</button>
+                    <p class="form-status" id="cf-status" role="status" aria-live="polite"></p>
+                </form>
             </div>
         </div>
 
