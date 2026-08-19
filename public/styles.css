@@ -489,6 +489,12 @@ nav ul a.active {
   color: var(--text-muted);
 }
 
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 .hero-image {
   position: relative;
   display: flex;
@@ -610,7 +616,7 @@ nav ul a.active {
 }
 
 .portfolio-item:hover .portfolio-overlay {
-  background: linear-gradient(to top, rgba(245, 158, 11, 0.8), transparent 70%);
+  background: linear-gradient(to top, rgba(31, 184, 196, 0.8), transparent 70%);
 }
 
 .portfolio-overlay h3 {
@@ -832,13 +838,37 @@ footer#footer-main::before {
 }
 
 .footer-col ul a,
-.footer-col ul span {
+.footer-col ul > li > span {
   display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+  align-items: flex-start;
+  gap: 0.6rem;
   color: rgba(255, 255, 255, 0.8);
   font-size: 0.95rem;
   line-height: 1.5;
+  text-align: left;
+}
+
+.footer-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-top: 0.2rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.footer-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.footer-col ul a:hover .footer-icon {
+  color: var(--amber);
 }
 
 .footer-col ul a {
@@ -883,7 +913,8 @@ footer#footer-main::before {
   justify-content: center;
 }
 
-.social-icon img {
+.social-icon img,
+.social-icon svg {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -993,6 +1024,10 @@ footer#footer-main::before {
   color: var(--text-muted);
   font-size: 1rem;
   line-height: 1.5;
+}
+
+.contact-card p a:hover {
+  color: var(--amber);
 }
 
 /* ===== FORMULARIO DE CONTACTO ===== */
@@ -1278,27 +1313,27 @@ footer#footer-main::before {
 #panel-envases,
 #panel-publicidad,
 #panel-contacto {
-  --panel-glow-a: rgba(31, 184, 196, 0.22);
-  --panel-glow-b: rgba(240, 114, 28, 0.18);
+  --panel-glow-a: rgba(31, 184, 196, 0.32);
+  --panel-glow-b: rgba(240, 114, 28, 0.28);
   position: relative;
   background-color: var(--slate-50);
   background-image:
-    radial-gradient(circle at 15% 20%, var(--panel-glow-a), transparent 55%),
-    radial-gradient(circle at 88% 82%, var(--panel-glow-b), transparent 55%),
-    radial-gradient(rgba(15, 23, 42, 0.09) 1.2px, transparent 1.6px);
+    radial-gradient(circle at 15% 20%, var(--panel-glow-a), transparent 58%),
+    radial-gradient(circle at 88% 82%, var(--panel-glow-b), transparent 58%),
+    radial-gradient(rgba(15, 23, 42, 0.13) 1.2px, transparent 1.6px);
   background-repeat: no-repeat, no-repeat, repeat;
   background-size: 100% 100%, 100% 100%, 24px 24px;
 }
 
 /* Envases y Publicidad inclinan el resplandor hacia su color de identidad */
 #panel-envases {
-  --panel-glow-a: rgba(31, 184, 196, 0.26);
-  --panel-glow-b: rgba(31, 184, 196, 0.10);
+  --panel-glow-a: rgba(31, 184, 196, 0.40);
+  --panel-glow-b: rgba(31, 184, 196, 0.20);
 }
 
 #panel-publicidad {
-  --panel-glow-a: rgba(240, 114, 28, 0.26);
-  --panel-glow-b: rgba(240, 114, 28, 0.10);
+  --panel-glow-a: rgba(240, 114, 28, 0.40);
+  --panel-glow-b: rgba(240, 114, 28, 0.20);
 }
 
 #panel-hub {
@@ -1482,7 +1517,7 @@ footer#footer-main::before {
   }
 
   .footer-col ul a,
-  .footer-col ul span {
+  .footer-col ul > li > span {
     justify-content: center;
   }
 
