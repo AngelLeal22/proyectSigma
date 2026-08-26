@@ -1032,11 +1032,12 @@ footer#footer-main::before {
 
 /* ===== FORMULARIO DE CONTACTO ===== */
 .contact-form-wrapper {
-  margin: 4rem auto 0;
-  max-width: 700px;
+  width: 100%;
+  margin: 5rem auto 0;
+  max-width: 960px;
   background: var(--white);
   border-radius: 24px;
-  padding: 3rem;
+  padding: 3.5rem 4rem;
   border: 1px solid var(--slate-100);
   box-shadow: var(--shadow-premium);
 }
