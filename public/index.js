@@ -159,7 +159,7 @@ const indicatorsContainer = document.getElementById('indicatorsContainer');
 let currentIndex = 0;
 const totalSlides = slides.length;
 let autoPlayInterval = null;
-const AUTO_PLAY_DELAY = 4000; // 4 segundos
+const AUTO_PLAY_DELAY = 6000; // 6 segundos
 
 // Crear indicadores (puntos)
 slides.forEach((_, index) => {
