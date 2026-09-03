@@ -2,9 +2,12 @@ const backToTopBtn = document.getElementById('back-to-top');
 const whatsappEnvasesBtn = document.getElementById('whatsapp-envases');
 const whatsappPublicidadBtn = document.getElementById('whatsapp-publicidad');
 const logoDefaultImg = document.getElementById('logo-img-default');
+const logoEnvasesImg = document.getElementById('logo-img-envases');
 const logoPublicidadImg = document.getElementById('logo-img-publicidad');
 const logoFooterDefaultImg = document.getElementById('logo-img-footer-default');
+const logoFooterEnvasesImg = document.getElementById('logo-img-footer-envases');
 const logoFooterPublicidadImg = document.getElementById('logo-img-footer-publicidad');
+const publicidadHeroVideo = document.getElementById('publicidad-hero-video');
 const panelHeader = document.querySelector('.panel-header');
 const mainNav = document.getElementById('main-nav');
 const navToggle = document.getElementById('nav-toggle');
@@ -47,12 +50,24 @@ function navigate() {
     whatsappEnvasesBtn.classList.toggle('visible', activePanel === routes['#envases']);
     whatsappPublicidadBtn.classList.toggle('visible', activePanel === routes['#publicidad']);
 
-    // Alternar el logo del navbar y del footer: variante de Publicidad solo en esa sección
+    // Alternar el logo del navbar y del footer: variante de Envases/Publicidad solo en esa sección
+    const esEnvases = activePanel === routes['#envases'];
     const esPublicidad = activePanel === routes['#publicidad'];
+    logoEnvasesImg.classList.toggle('logo-img-visible', esEnvases);
     logoPublicidadImg.classList.toggle('logo-img-visible', esPublicidad);
-    logoDefaultImg.classList.toggle('logo-img-visible', !esPublicidad);
+    logoDefaultImg.classList.toggle('logo-img-visible', !esEnvases && !esPublicidad);
+    logoFooterEnvasesImg.classList.toggle('logo-img-visible', esEnvases);
     logoFooterPublicidadImg.classList.toggle('logo-img-visible', esPublicidad);
-    logoFooterDefaultImg.classList.toggle('logo-img-visible', !esPublicidad);
+    logoFooterDefaultImg.classList.toggle('logo-img-visible', !esEnvases && !esPublicidad);
+    document.querySelectorAll('.logo-img-wrap--completo').forEach(wrap => {
+        wrap.classList.toggle('logo-img-wrap--envases-active', esEnvases);
+        wrap.classList.toggle('logo-img-wrap--publicidad-active', esPublicidad);
+    });
+
+    // Cargar y reproducir el video del hero de Publicidad solo al entrar a esa sección
+    if (esPublicidad) {
+        prepararVideo(publicidadHeroVideo);
+    }
 
     // Resaltar el enlace de navegación activo y mover el indicador deslizante
     const activeRoute = Object.keys(routes).find(key => routes[key] === activePanel) || '#home';
