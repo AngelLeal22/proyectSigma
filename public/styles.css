@@ -1086,6 +1086,15 @@ footer#footer-main::before {
   margin-bottom: 1.5rem;
 }
 
+/* Campo trampa anti-spam: fuera de la vista pero presente para los bots */
+.form-trampa {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .form-field label {
   font-size: 0.85rem;
   font-weight: 600;

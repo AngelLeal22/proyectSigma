@@ -25,6 +25,17 @@ const routes = {
     '#contacto': document.getElementById('panel-contacto')
 };
 
+// Busca el elemento al que apunta un hash (#id). No usa querySelector porque
+// un hash que no es un selector válido (p. ej. "#1abc") lanzaría una excepción.
+function elementoDelHash(hash) {
+    if (!hash || hash.length < 2) return null;
+    try {
+        return document.getElementById(decodeURIComponent(hash.slice(1)));
+    } catch {
+        return null;
+    }
+}
+
 function navigate() {
     const hash = window.location.hash || '#home';
 
@@ -36,7 +47,7 @@ function navigate() {
     // Buscar el panel para el hash actual
     let activePanel = routes[hash] || routes['#home'];
     if (!routes[hash]) {
-        const targetEl = document.querySelector(hash);
+        const targetEl = elementoDelHash(hash);
         if (targetEl) {
             activePanel = Object.values(routes).find(panel => panel && panel.contains(targetEl)) || activePanel;
         }
@@ -77,7 +88,7 @@ function navigate() {
     closeMobileNav();
 
     // Desplazarse a la sección cuando el hash apunta a un elemento; de lo contrario subir arriba.
-    const targetSection = window.location.hash ? document.querySelector(window.location.hash) : null;
+    const targetSection = elementoDelHash(window.location.hash);
     if (targetSection) {
         targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else {
@@ -370,6 +381,7 @@ if (contactForm) {
       telefono: formData.get('telefono') || '',
       email: formData.get('email') || '',
       descripcion: formData.get('descripcion') || '',
+      sitio_web: formData.get('sitio_web') || '',
     };
 
     contactStatus.textContent = '';
@@ -390,7 +402,8 @@ if (contactForm) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      const result = await response.json();
+      // Un proxy o CDN delante puede responder con HTML en vez de JSON
+      const result = await response.json().catch(() => ({}));
 
       if (!response.ok || !result.ok) {
         if (result.errores) {
