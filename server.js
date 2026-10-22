@@ -28,6 +28,12 @@ app.use(helmet({
       'upgrade-insecure-requests': EN_PRODUCCION ? [] : null,
     },
   },
+  // Sin includeSubDomains: el certificado SSL cubre solo el dominio y www, y
+  // HSTS con subdominios obligaría a HTTPS también en mail. y otros.
+  strictTransportSecurity: {
+    maxAge: 31536000,
+    includeSubDomains: false,
+  },
 }));
 
 // Servir archivos estáticos desde la carpeta 'public'

@@ -14,10 +14,10 @@ data/
 .DS_Store
 Thumbs.db
 
-# Variables de entorno (si se usa .env)
+# Variables de entorno: cualquier .env* (contienen contraseñas), salvo la plantilla
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
 
 # Archivos de editor
 .vscode/

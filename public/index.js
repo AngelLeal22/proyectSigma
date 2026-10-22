@@ -136,7 +136,6 @@ document.addEventListener('click', (e) => {
 });
 
 window.addEventListener('hashchange', navigate);
-window.addEventListener('load', navigate);
 
 // --- LÓGICA DEL BOTÓN VOLVER ARRIBA Y NAVBAR CON SCROLL ---
 window.addEventListener('scroll', () => {
@@ -424,3 +423,8 @@ if (contactForm) {
     }
   });
 }
+// Mostrar la sección inicial. Va al final para que todo lo que usa navigate()
+// ya esté declarado. El script es "defer", así que el HTML ya está listo: no se
+// espera a 'load', que aguarda a que bajen todos los videos, imágenes y el mapa
+// (mientras tanto solo se veía el footer).
+navigate();
