@@ -115,7 +115,9 @@ function manejarErrores(err, req, res, next) {
   if (err.type === 'entity.too.large') {
     return res.status(413).json({ ok: false, error: 'El mensaje es demasiado largo. Resume los detalles e intenta de nuevo.' });
   }
-  if (err.type === 'entity.parse.failed') {
+  // JSON inválido, compresión rota, charset no soportado, etc.: es culpa de
+  // quien envía, así que 400 y sin ensuciar el log de errores.
+  if (err.type === 'entity.parse.failed' || (err.status >= 400 && err.status < 500)) {
     return res.status(400).json({ ok: false, error: 'Solicitud inválida.' });
   }
   console.error('Error inesperado en /api/contacto:', err);

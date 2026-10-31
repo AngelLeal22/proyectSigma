@@ -16,6 +16,9 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+  "engines": {
+    "node": ">=20"
+  },
   "bugs": {
     "url": "https://github.com/AngelLeal22/proyectSigma/issues"
   },
