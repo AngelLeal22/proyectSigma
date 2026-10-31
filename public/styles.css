@@ -132,6 +132,12 @@ img {
   transform: translateY(0);
 }
 
+/* El navegador puede pintar antes de que index.js active una sección; sin esto
+   el footer se vería solo, pegado arriba, durante ese instante. */
+body:not(:has(.panel.view-active)) #footer-main {
+  visibility: hidden;
+}
+
 .panel-header {
   display: flex;
   justify-content: space-between;
